@@ -38,4 +38,4 @@ $> make tests
 $> make coverage
 ```
 
-- The solution kata will be implemented and explained at `solution` branch
+- The solution kata will be implemented and explained at the `README.md` file at the `solution` branch
