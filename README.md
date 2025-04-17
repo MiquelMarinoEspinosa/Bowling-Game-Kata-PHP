@@ -17,3 +17,25 @@ Write a class `Game` that has two methods
 
 # Follow up
 It has been added the [Robert C. Martin](BowlingGameKata.pdf) solution in the code base in pdf format 
+
+# Development environment
+- It requires `docker`
+- Execute the following commands
+
+```
+$> make build
+$> make up
+$> make install 
+```
+
+To execute the tests execute
+```
+$> make tests
+```
+
+To generate the coverage at the `build/coverage` folder execute
+```
+$> make coverage
+```
+
+The solution kata will be implemented at `solution` branch

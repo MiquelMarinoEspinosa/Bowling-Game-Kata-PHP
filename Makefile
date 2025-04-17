@@ -1,4 +1,4 @@
-.PHONY: coverage
+.PHONY: coverage tests
 
 SH_PHP=docker exec -i -t app.php-cli
 
@@ -17,5 +17,8 @@ shell:
 install:
 	$(SH_PHP) composer install
 
+tests:
+	$(SH_PHP) vendor/bin/phpunit
+
 coverage:
-	$(SH_PHP) vendor/bin/phpunit --coverage-html coverage
+	$(SH_PHP) vendor/bin/phpunit --coverage-html build/coverage
