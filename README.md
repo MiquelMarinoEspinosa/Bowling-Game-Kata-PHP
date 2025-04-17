@@ -28,14 +28,14 @@ $> make up
 $> make install 
 ```
 
-To execute the tests execute
+- To execute the tests execute
 ```
 $> make tests
 ```
 
-To generate the coverage at the `build/coverage` folder execute
+- To generate the coverage at the `build/coverage` folder execute
 ```
 $> make coverage
 ```
 
-The solution kata will be implemented at `solution` branch
+- The solution kata will be implemented and explained at `solution` branch
