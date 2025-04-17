@@ -46,7 +46,7 @@ $> make coverage
     - `RED` -> fail, writing a failing test
     - `GREEN` -> fix, make the test pass quick
     - `BLUE` -> refactor, clean up the code and introduce any design if it is required
-    - `NONE` -> refactor and fixes which are manly related to mistakes or findings out of the `TDD` process
+    - `NONE` -> refactor and fixes which are manly related to mistakes, findings or adding documentation out of the `TDD` process
 - At every step the code coverage will be checked
 - Let's start creating unit tests considering that the `Game` has a single frame and cover all the logic for a single frame
     - Edge cases
