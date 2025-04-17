@@ -16,4 +16,4 @@ Write a class `Game` that has two methods
 `int score()` returns the total score for that game.
 
 # Follow up
-It has been added the [Robert C. Marting]("Bowling Game Kata.pdf") solution in the code base in pdf format 
+It has been added the [Robert C. Martin](BowlingGameKata.pdf) solution in the code base in pdf format 
