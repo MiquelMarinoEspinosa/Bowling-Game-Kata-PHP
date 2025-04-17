@@ -1,5 +1,5 @@
 {
-    "name": "MiquelMarinoEspinosa/Bowling-Game-Kata-PHP",
+    "name": "miquelmarinoespinosa/bowling-game-kata-php",
     "description": "TDD bowling kata",
     "require": {
         "php": "^8.4"
