@@ -14,6 +14,6 @@ final class GameTest extends TestCase
     {
         $this->expectException(Exception::class);
         
-        $game = new Game()->roll(-1);
+        new Game()->roll(-1);
     }
 }
