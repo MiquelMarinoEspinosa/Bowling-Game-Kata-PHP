@@ -52,3 +52,5 @@ $> make coverage
         - The `Game` does not accept negative `pins` for the `roll` method
             - `RED`: Write one unit test for the `roll` method passing negative `pins` value. Notice that the `roll` method does not even exist at this point
             - `GREEN`: Add method `roll` at `Game` class and throw an exception
+            - `BLUE`: Nothing to refactor at this point. Let's continue :)
+        
