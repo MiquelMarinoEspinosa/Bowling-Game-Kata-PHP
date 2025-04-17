@@ -43,9 +43,10 @@ $> make coverage
 # Solution
 - The whole solution will be implemented following the `TDD` strategy
 - For each implementation the 3 `TDD` steps will be explained in detail
-    - `RED` -> writing a failing test
-    - `GREEN` -> make the test pass quick
-    - `REFACTOR` -> clean up the code and introduce any design if it is required
+    - `RED` -> fail, writing a failing test
+    - `GREEN` -> fix, make the test pass quick
+    - `BLUE` -> refactor, clean up the code and introduce any design if it is required
+- At every step the code coverage will be checked
 - Let's start creating unit tests considering that the `Game` has a single frame and cover all the logic for a single frame
     - Edge cases
         - The `Game` does not accept negative `pins` for the `roll` method

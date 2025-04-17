@@ -13,7 +13,8 @@ final class GameTest extends TestCase
     public function testGivenNegativePinsWhenRollThenThrowAnException(): void
     {
         $this->expectException(Exception::class);
-        
-        new Game()->roll(-1);
+
+        $game = new Game();
+        $game->roll(-1);
     }
 }
