@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Exception;
 use Kata\Game;
 use PHPUnit\Framework\TestCase;
 
 final class GameTest extends TestCase
 {
-    public function testAssertTrue(): void
+    public function testGivenNegativePinsWhenRollThenThrowAnException(): void
     {
-        $game = new Game();
-        self::assertInstanceOf(Game::class, $game);
+        $this->expectException(Exception::class);
+        
+        $game = new Game()->roll(-1);
     }
 }

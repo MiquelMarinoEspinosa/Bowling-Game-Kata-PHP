@@ -39,3 +39,14 @@ $> make coverage
 ```
 
 - The solution kata will be implemented and explained at the `README.md` file at the `solution` branch
+
+# Solution
+- The whole solution will be implemented following the `TDD` strategy
+- For each implementation the 3 `TDD` steps will be explained in detail
+    - `RED` -> writing a failing test
+    - `GREEN` -> make the test pass quick
+    - `REFACTOR` -> clean up the code and introduce any design if it is required
+- Let's start creating unit tests considering that the `Game` has a single frame and cover all the logic for a single frame
+    - Edge cases
+        - The `Game` does not accept negative `pins` for the `roll` method
+            - `RED`: Write one unit test for the `roll` method passing negative `pins` value. Notice that the `roll` method does not even exist at this point
