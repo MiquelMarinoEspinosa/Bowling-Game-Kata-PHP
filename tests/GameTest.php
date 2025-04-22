@@ -17,4 +17,12 @@ final class GameTest extends TestCase
         $game = new Game();
         $game->roll(-1);
     }
+
+    public function testGivenOnePinWhenRollThenReturnsOnePin(): void
+    {
+        $game = new Game();
+        $game->roll(1);
+
+        self::assertSame(1, $game->score());
+    }
 }
