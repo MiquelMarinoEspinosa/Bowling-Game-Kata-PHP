@@ -10,6 +10,13 @@ final class Game
 {
     public function roll(int $pins): void
     {
-        throw new Exception('pins paramater cannot be negative');
+        if ($pins < 0) {
+            throw new Exception('pins paramater cannot be negative');
+        }
+    }
+
+    public function score(): int 
+    {
+        return 1;
     }
 }

@@ -56,4 +56,7 @@ $> make coverage
             - `BLUE`: Nothing to refactor at this point. Let's continue :)
         - The `Game` allow to roll `1` `pin`
             - `RED`: write one unit test for the `roll` method passing `1` as num of `pins` parameter. Also the test would call to the not existent yet `score` method
+            - `GREEN`: 
+                - fix the test fast, adding a condition to check whether the `pins` is negative to throw the exception 
+                - implement `score` method returning `1` 
         
