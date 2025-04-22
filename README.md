@@ -96,3 +96,6 @@ $> make coverage
                 - extract first main `roll` logic into a method call `processFrame`
                 - extract `roll1` and `roll2` logic into other methods
                 - extract `processSpare` and `processStrike` into methods
+    - Implements 10th frame logic
+        - Implements when 10th frame without `spare` or `strike` has finished, no more rolls are allowed
+            - `RED`: unit test that implements the logic of no more roll allowed at 10th frame without `spare` or `strike`

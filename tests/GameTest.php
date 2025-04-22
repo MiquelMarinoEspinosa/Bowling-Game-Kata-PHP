@@ -92,4 +92,16 @@ final class GameTest extends TestCase
 
         self::assertSame($expectedSparePins, $this->game->score());
     }
+
+    public function testGivenTenthFrameFinishedWhenRollOnceAgainThenThrowsAnException(): void
+    {
+        $this->expectException(Exception::class);
+
+        $pins = 3;
+        for($roll=0; $roll < 10*2; $roll++) {
+            $this->game->roll($pins);
+        }
+
+        $this->game->roll($pins);
+    }
 }
