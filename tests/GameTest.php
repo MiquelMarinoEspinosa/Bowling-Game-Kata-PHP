@@ -19,22 +19,25 @@ final class GameTest extends TestCase
 
     public function testGivenNegativePinsWhenRollThenThrowAnException(): void
     {
+        $pins = -1;
         $this->expectException(Exception::class);
 
-        $this->game->roll(-1);
+        $this->game->roll($pins);
     }
 
     public function testGivenOnePinWhenRollThenReturnsOnePin(): void
     {
-        $this->game->roll(1);
+        $pins = 1;
+        $this->game->roll($pins);
 
-        self::assertSame(1, $this->game->score());
+        self::assertSame($pins, $this->game->score());
     }
 
     public function testGivenTenPinsWhenRollThenThrowAnException(): void
     {
+        $pins = 11;
         $this->expectException(Exception::class);
 
-        $this->game->roll(11);
+        $this->game->roll($pins);
     }
 }

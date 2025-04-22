@@ -65,3 +65,6 @@ $> make coverage
         - The `Game` does not allow more than `10` pins to be rolled
             - `RED`: Falling test try to `roll` more than `10` pins
             - `GREEN`: add to the safe guard the condition of less than `10` pins at the `roll` method
+            - `BLUE`: 
+                - refactor `Game roll` method to make to early returns when `pins` is negative number and when it is greater than `0`
+                - refactor extract `pins` value into a variable in `GameTest` class

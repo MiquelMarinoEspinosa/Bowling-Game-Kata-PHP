@@ -10,11 +10,13 @@ final class Game
 {
     public function roll(int $pins): void
     {
-        if ($pins >= 0 && $pins <= 10) {
-            return;
+        if ($pins < 0) {
+            throw new Exception('pins paramater cannot be lesser than 0');
         }
 
-        throw new Exception('pins paramater cannot be negative');
+        if ($pins > 10) {
+            throw new Exception('pins paramater cannot be greater than 10');
+        }
     }
 
     public function score(): int 
