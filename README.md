@@ -100,3 +100,4 @@ $> make coverage
         - Implements when 11th frame without `spare` or `strike` has finished, no more rolls are allowed
             - `RED`: unit test that implements the logic of no more roll allowed at 11th frame without `spare` or `strike` on 10th frame
             - `GREEN`: fix at the `roll` method when `frame` is greather than 10, throw an exception
+            - `BLUE`: refactor introduce `Frame` data transfer object and use it to update and gather frame data at `Game`

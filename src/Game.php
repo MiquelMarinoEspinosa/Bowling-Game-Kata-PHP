@@ -26,8 +26,8 @@ final class Game
         $result = 0;
         return array_reduce(
             $this->frames,
-            static fn(int $result, array $frame): int =>
-                $result + $frame['rollOne'] + $frame['rollTwo']+ $frame['bonus'],
+            static fn(int $result, Frame $frame): int =>
+                $result + $frame->rollOne + $frame->rollTwo + $frame->bonus,
             $result
         );
     }
@@ -45,7 +45,7 @@ final class Game
 
     private function processFrame(int $pins): void
     {
-        if (!isset($this->frames[$this->currentFrame]['rollOne'])) {
+        if (!isset($this->frames[$this->currentFrame])) {
             $this->processRollOne($pins);
 
             return;
@@ -56,7 +56,9 @@ final class Game
 
     private function processRollOne(int $pins): void
     {
-        $this->frames[$this->currentFrame]['rollOne'] = $pins;
+        $frame = new Frame();
+        $frame->rollOne = $pins;
+        $this->frames[$this->currentFrame] = $frame;
         
         if (10 === $pins) {
             $this->currentFrame++;
@@ -71,7 +73,7 @@ final class Game
 
     private function processRollTwo(int $pins): void
     {
-        $this->frames[$this->currentFrame]['rollTwo'] = $pins;
+        $this->frames[$this->currentFrame]->rollTwo = $pins;
 
         if (0 === $this->currentFrame) {
             $this->currentFrame++;
@@ -86,16 +88,16 @@ final class Game
     private function processSpare(): void
     {
         $previousFrame = $this->frames[$this->currentFrame - 1];
-        if (array_sum($previousFrame) === 10 && isset($previousFrame['rollTwo'])) {
-            $this->frames[$this->currentFrame - 1]['bonus'] = $this->frames[$this->currentFrame]['rollOne']; 
+        if ($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null !== $previousFrame->rollTwo) {
+            $this->frames[$this->currentFrame - 1]->bonus = $this->frames[$this->currentFrame]->rollOne; 
         }
     }
 
     private function processStrike(): void
     {
         $previousFrame = $this->frames[$this->currentFrame - 1];
-        if (array_sum($previousFrame) === 10 && !isset($previousFrame['rollTwo'])) {
-            $this->frames[$this->currentFrame - 1]['bonus'] = array_sum($this->frames[$this->currentFrame]);
+        if ($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null === $previousFrame->rollTwo) {
+            $this->frames[$this->currentFrame - 1]->bonus = $this->frames[$this->currentFrame]->rollOne + $this->frames[$this->currentFrame]->rollTwo;
         }
     }
 }
