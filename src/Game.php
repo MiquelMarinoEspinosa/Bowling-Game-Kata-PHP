@@ -8,7 +8,7 @@ use Exception;
 
 final class Game
 {
-    private int $pinsRolled;
+    private int $pinsRolled = 0;
 
     public function roll(int $pins): void
     {
@@ -20,7 +20,7 @@ final class Game
             throw new Exception('pins paramater cannot be greater than 10');
         }
 
-        $this->pinsRolled = $pins;
+        $this->pinsRolled += $pins;
     }
 
     public function score(): int 
