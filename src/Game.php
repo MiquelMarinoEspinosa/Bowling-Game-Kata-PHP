@@ -12,13 +12,7 @@ final class Game
 
     public function roll(int $pins): void
     {
-        if ($pins < 0) {
-            throw new Exception('pins paramater cannot be lesser than 0');
-        }
-
-        if ($pins > 10) {
-            throw new Exception('pins paramater cannot be greater than 10');
-        }
+        $this->validatePins($pins);
 
         $this->pinsRolled += $pins;
     }
@@ -26,5 +20,16 @@ final class Game
     public function score(): int 
     {
         return $this->pinsRolled;
+    }
+
+    private function validatePins(int $pins): void
+    {
+        if ($pins < 0) {
+            throw new Exception('pins paramater cannot be lesser than 0');
+        }
+
+        if ($pins > 10) {
+            throw new Exception('pins paramater cannot be greater than 10');
+        }
     }
 }

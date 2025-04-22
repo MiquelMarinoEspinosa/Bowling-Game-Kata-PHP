@@ -25,7 +25,7 @@ final class GameTest extends TestCase
         $this->game->roll($pins);
     }
 
-    public function testGivenOnePinWhenRollThenReturnsOnePin(): void
+    public function testGivenOnePinWhenRollThenScoreReturnsOnePin(): void
     {
         $pins = 1;
         $this->game->roll($pins);
@@ -41,7 +41,7 @@ final class GameTest extends TestCase
         $this->game->roll($pins);
     }
 
-    public function testGivenTwoPinsWhenRollThenReturnsTwoPins(): void
+    public function testGivenTwoPinsWhenRollThenScoreReturnsTwoPins(): void
     {
         $pins = 2;
         $this->game->roll($pins);
@@ -49,7 +49,7 @@ final class GameTest extends TestCase
         self::assertSame($pins, $this->game->score());
     }
 
-    public function testGivenSpareTenPinsRolledInTwoRollsThenReturnsTenPinsPlusPinsThirdRoll(): void
+    public function testGivenSpareTenPinsRolledInTwoRollsThenScoreReturnsTenPinsPlusPinsThirdRoll(): void
     {
         $pinsFirstRoll = 7;
         $pinsSecondRoll = 3;

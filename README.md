@@ -74,4 +74,7 @@ $> make coverage
         - `BLUE`: Not further refactors have been identified in this iteration. Moving forward :D
     - Implements `spare` logic for a single frame
         - `RED`: failing unit test knocking down the 10 `pins` in 2 `rolls`, `score` should return `10` plus `3` which are the `pins` knock down into the next third `roll`
-        - `GREEN`: sum the `pinsRolled` up 
+        - `GREEN`: sum the `pinsRolled` up
+        - `BLUE`: 
+            - refactor `GameTest` methods to add the `score` method name
+            - refactor `Game` extracting guard logic into a method
