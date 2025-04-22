@@ -89,3 +89,10 @@ $> make coverage
     - Implements `strike` logic
         - `RED`: failing tests that when in the first `roll` knock all pins down, the next 2 `rolls` should not just add up to the current `frame` but also to the previous one
         - `GREEN`: fix the test adding the `strike` logic at the `Game` class
+        - `BLUE`:
+            - refactor `score` anonymous function add `int` return type hint
+            - refactor move `spare` logic into process `roll1` logic
+            - refactor extract paragraph code into methods
+                - extract first main `roll` logic into a method call `processFrame`
+                - extract `roll1` and `roll2` logic into other methods
+                - extract `processSpare` and `processStrike` into methods
