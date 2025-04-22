@@ -9,36 +9,31 @@ use Exception;
 final class Game
 {
     private array $frames = [];
-    private array $currentFrame = [
-        'roll1' => 0,
-        'roll2' => 0,
-        'bonus' => 0
-    ];
+    private int $currentFrame = 0;
 
     public function roll(int $pins): void
     {
         $this->validatePins($pins);
 
-        if (0 === $this->currentFrame['roll1']) {
-            $this->currentFrame['roll1'] = $pins;
+        if (!isset($this->frames[0]['roll1'])) {
+            $this->frames[$this->currentFrame]['roll1'] = $pins;
 
             return;
         }
 
-        if (0 === $this->currentFrame['roll2']) {
-            $this->currentFrame['roll2'] = $pins;
+        if (!isset($this->frames[$this->currentFrame]['roll2'])) {
+            $this->frames[$this->currentFrame]['roll2'] = $pins;
 
             return;
         }
+
+        $this->currentFrame++;
+        $this->frames[$this->currentFrame]['roll1'] = $pins;
         
-        $this->frames[] = $this->currentFrame;
-        $this->currentFrame['roll1'] = $pins;
-        $this->currentFrame['roll2'] = 0;
-
-        $previousFrame = $this->frames[count($this->frames) - 1];
+        $previousFrame = $this->frames[$this->currentFrame - 1];
         
         if (array_sum($previousFrame) === 10) {
-            $this->frames[count($this->frames) - 1]['bonus'] += $pins;
+            $this->frames[$this->currentFrame - 1]['bonus'] += $pins;
             return; 
         }
 
@@ -46,14 +41,13 @@ final class Game
 
     public function score(): int 
     {
-        $score = array_reduce(
+        $result = 0;
+        return array_reduce(
             $this->frames,
             static fn(int $result, array $frame) =>
                 $result + $frame['roll1'] + $frame['roll2']+ $frame['bonus'],
-            0
+            $result
         );
-
-        return $score + array_sum($this->currentFrame);
     }
 
     private function validatePins(int $pins): void
