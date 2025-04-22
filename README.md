@@ -80,3 +80,5 @@ $> make coverage
             - refactor `Game` extracting guard logic into a method
     - Implements `spare` logic for a 2 frames
         - `RED`: failing unit test knocking down 10 `pins` in 2 `rolls`, `score` should return `10` plus the `pins` for next `frame` `3 + 3 = 6` plus `3` extra points for the `spare next roll`
+        - `GREEN`: introduce array structure to store `frame` information 
+            - take me a little bit more time than usual and it is not unfortunatelly a baby step. Nevertheless, I did not know how to do a shorter baby step
