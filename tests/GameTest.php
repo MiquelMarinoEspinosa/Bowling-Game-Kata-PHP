@@ -30,4 +30,11 @@ final class GameTest extends TestCase
 
         self::assertSame(1, $this->game->score());
     }
+
+    public function testGivenTenPinsWhenRollThenThrowAnException(): void
+    {
+        $this->expectException(Exception::class);
+
+        $this->game->roll(11);
+    }
 }

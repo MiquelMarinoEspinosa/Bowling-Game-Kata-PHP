@@ -62,4 +62,5 @@ $> make coverage
             - `BLUE`:
                 - refactor `GameTest` to use `setUp` method to create the `Game` sut
                 - implements early return at `Game roll` method in case positive or zero number
-        
+        - The `Game` does not allow more than `10` pins to be rolled
+            - `RED`: Falling test try to `roll` more than `10` pins
