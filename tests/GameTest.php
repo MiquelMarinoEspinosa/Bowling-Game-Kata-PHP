@@ -62,4 +62,20 @@ final class GameTest extends TestCase
 
         self::assertSame($expectedSparePins, $this->game->score());
     }
+
+    public function testGivenFirstFrameSparedWhenRollThenScoreReturnsSparePinsPlusSecondFramePinsRolled(): void
+    {
+        $pinsFirstRoll = 7;
+        $pinsSecondRoll = 3;
+        $pinsThirdRoll = 3;
+        $pinsFourthRoll = 3;
+        $expectedSparePins = 19;
+
+        $this->game->roll($pinsFirstRoll);
+        $this->game->roll($pinsSecondRoll);
+        $this->game->roll($pinsThirdRoll);
+        $this->game->roll($pinsFourthRoll);
+
+        self::assertSame($expectedSparePins, $this->game->score());
+    }
 }

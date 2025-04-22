@@ -78,3 +78,5 @@ $> make coverage
         - `BLUE`: 
             - refactor `GameTest` methods to add the `score` method name
             - refactor `Game` extracting guard logic into a method
+    - Implements `spare` logic for a 2 frames
+        - `RED`: failing unit test knocking down 10 `pins` in 2 `rolls`, `score` should return `10` plus the `pins` for next `frame` `3 + 3 = 6` plus `3` extra points for the `spare next roll`
