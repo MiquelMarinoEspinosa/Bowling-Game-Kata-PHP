@@ -15,14 +15,28 @@ final class Game
     {
         $this->validatePins($pins);
 
-        if (!isset($this->frames[0]['roll1'])) {
+        if (!isset($this->frames[$this->currentFrame]['roll1'])) {
             $this->frames[$this->currentFrame]['roll1'] = $pins;
+
+            if (10 === $pins) {
+                $this->currentFrame++;
+            }
 
             return;
         }
 
         if (!isset($this->frames[$this->currentFrame]['roll2'])) {
             $this->frames[$this->currentFrame]['roll2'] = $pins;
+
+            if (0 === $this->currentFrame) {
+                return;
+            }
+
+            $previousFrame = $this->frames[$this->currentFrame - 1];
+            if (array_sum($previousFrame) === 10 && !isset($previousFrame['roll2'])) {
+                $this->frames[$this->currentFrame - 1]['bonus'] += array_sum($this->frames[$this->currentFrame]);
+                return; 
+            }
 
             return;
         }
@@ -32,11 +46,10 @@ final class Game
         
         $previousFrame = $this->frames[$this->currentFrame - 1];
         
-        if (array_sum($previousFrame) === 10) {
+        if (array_sum($previousFrame) === 10 && isset($previousFrame['roll2'])) {
             $this->frames[$this->currentFrame - 1]['bonus'] += $pins;
             return; 
         }
-
     }
 
     public function score(): int 

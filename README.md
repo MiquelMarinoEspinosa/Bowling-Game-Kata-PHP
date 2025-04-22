@@ -88,3 +88,4 @@ $> make coverage
             - Update first `roll1` frame instead of checking every time the `currentFrame`
     - Implements `strike` logic
         - `RED`: failing tests that when in the first `roll` knock all pins down, the next 2 `rolls` should not just add up to the current `frame` but also to the previous one
+        - `GREEN`: fix the test adding the `strike` logic at the `Game` class
