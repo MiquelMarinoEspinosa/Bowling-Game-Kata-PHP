@@ -14,6 +14,9 @@ final class Game
     public function roll(int $pins): void
     {
         $this->validatePins($pins);
+        if ($this->currentFrame >= 10) {
+            throw new Exception('cannot roll further than 10th frame');
+        }
 
         $this->processFrame($pins);
     }
