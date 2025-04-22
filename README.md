@@ -70,3 +70,4 @@ $> make coverage
                 - refactor extract `pins` value into a variable in `GameTest` class
     - Return the real `score` value
         - `RED`: Failing test that when `roll` `2` pins `score` returns `1`
+        - `GREEN`: Introduce `pinsRolled Game class field` to save the current `pins rolled` value

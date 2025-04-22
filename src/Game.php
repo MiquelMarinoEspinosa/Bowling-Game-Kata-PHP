@@ -8,6 +8,8 @@ use Exception;
 
 final class Game
 {
+    private int $pinsRolled;
+
     public function roll(int $pins): void
     {
         if ($pins < 0) {
@@ -17,10 +19,12 @@ final class Game
         if ($pins > 10) {
             throw new Exception('pins paramater cannot be greater than 10');
         }
+
+        $this->pinsRolled = $pins;
     }
 
     public function score(): int 
     {
-        return 1;
+        return $this->pinsRolled;
     }
 }
