@@ -10,7 +10,7 @@ final class Game
 {
     public function roll(int $pins): void
     {
-        if ($pins >= 0) {
+        if ($pins >= 0 && $pins <= 10) {
             return;
         }
 

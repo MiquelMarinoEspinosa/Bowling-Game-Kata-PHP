@@ -64,3 +64,4 @@ $> make coverage
                 - implements early return at `Game roll` method in case positive or zero number
         - The `Game` does not allow more than `10` pins to be rolled
             - `RED`: Falling test try to `roll` more than `10` pins
+            - `GREEN`: add to the safe guard the condition of less than `10` pins at the `roll` method
