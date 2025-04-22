@@ -72,3 +72,5 @@ $> make coverage
         - `RED`: Failing test that when `roll` `2` pins `score` returns `1`
         - `GREEN`: Introduce `pinsRolled Game class field` to save the current `pins rolled` value
         - `BLUE`: Not further refactors have been identified in this iteration. Moving forward :D
+    - Implements `spare` logic for a single frame
+        - `RED`: failing unit test knocking down the 10 `pins` in 2 `rolls`, `score` should return `10` plus `3` which are the `pins` knock down into the next third `roll` 

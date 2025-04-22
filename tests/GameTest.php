@@ -48,4 +48,18 @@ final class GameTest extends TestCase
 
         self::assertSame($pins, $this->game->score());
     }
+
+    public function testGivenSpareTenPinsRolledInTwoRollsThenReturnsTenPinsPlusPinsThirdRoll(): void
+    {
+        $pinsFirstRoll = 7;
+        $pinsSecondRoll = 3;
+        $pinsThirdRoll = 3;
+        $expectedSparePins = 13;
+
+        $this->game->roll($pinsFirstRoll);
+        $this->game->roll($pinsSecondRoll);
+        $this->game->roll($pinsThirdRoll);
+
+        self::assertSame($expectedSparePins, $this->game->score());
+    }
 }
