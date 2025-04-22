@@ -68,3 +68,5 @@ $> make coverage
             - `BLUE`: 
                 - refactor `Game roll` method to make to early returns when `pins` is negative number and when it is greater than `0`
                 - refactor extract `pins` value into a variable in `GameTest` class
+    - Return the real `score` value
+        - `RED`: Failing test that when `roll` `2` pins `score` returns `1`

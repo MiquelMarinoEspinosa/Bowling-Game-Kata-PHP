@@ -40,4 +40,12 @@ final class GameTest extends TestCase
 
         $this->game->roll($pins);
     }
+
+    public function testGivenTwoPinsWhenRollThenReturnsTwoPins(): void
+    {
+        $pins = 2;
+        $this->game->roll($pins);
+
+        self::assertSame($pins, $this->game->score());
+    }
 }
