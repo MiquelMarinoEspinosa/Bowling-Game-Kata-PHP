@@ -86,3 +86,5 @@ $> make coverage
             - Turning `currentFrame` structure into integer and just use `frames` structure to store the `roll`
             - Return `reduce` response directly removing the `score` variable at `score` method
             - Update first `roll1` frame instead of checking every time the `currentFrame`
+    - Implements `strike` logic
+        - `RED`: failing tests that when in the first `roll` knock all pins down, the next 2 `rolls` should not just add up to the current `frame` but also to the previous one
