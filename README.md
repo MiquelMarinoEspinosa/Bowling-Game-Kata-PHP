@@ -71,3 +71,4 @@ $> make coverage
     - Return the real `score` value
         - `RED`: Failing test that when `roll` `2` pins `score` returns `1`
         - `GREEN`: Introduce `pinsRolled Game class field` to save the current `pins rolled` value
+        - `BLUE`: Not further refactors have been identified in this iteration. Moving forward :D
