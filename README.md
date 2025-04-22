@@ -57,6 +57,9 @@ $> make coverage
         - The `Game` allow to roll `1` `pin`
             - `RED`: write one unit test for the `roll` method passing `1` as num of `pins` parameter. Also the test would call to the not existent yet `score` method
             - `GREEN`: 
-                - fix the test fast, adding a condition to check whether the `pins` is negative to throw the exception 
-                - implement `score` method returning `1` 
+                - fix the test fast, adding a safe guard to check whether the `pins` is negative to throw the exception 
+                - implement `score` method returning `1`
+            - `BLUE`:
+                - refactor `GameTest` to use `setUp` method to create the `Game` sut
+                - implements early return at `Game roll` method in case positive or zero number
         

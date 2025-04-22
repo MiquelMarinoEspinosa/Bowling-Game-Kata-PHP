@@ -10,19 +10,24 @@ use PHPUnit\Framework\TestCase;
 
 final class GameTest extends TestCase
 {
+    private Game $game;
+
+    protected function setUp(): void
+    {
+        $this->game = new Game();
+    }
+
     public function testGivenNegativePinsWhenRollThenThrowAnException(): void
     {
         $this->expectException(Exception::class);
 
-        $game = new Game();
-        $game->roll(-1);
+        $this->game->roll(-1);
     }
 
     public function testGivenOnePinWhenRollThenReturnsOnePin(): void
     {
-        $game = new Game();
-        $game->roll(1);
+        $this->game->roll(1);
 
-        self::assertSame(1, $game->score());
+        self::assertSame(1, $this->game->score());
     }
 }
