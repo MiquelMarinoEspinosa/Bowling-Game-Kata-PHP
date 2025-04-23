@@ -47,6 +47,7 @@ $> make coverage
     - `GREEN` -> fix, make the test pass quick
     - `BLUE` -> refactor, clean up the code and introduce any design if it is required
     - `NONE` -> refactor and fixes which are manly related to mistakes, findings or adding documentation out of the `TDD` process
+- When it comes to the `BLUE` state, usually every small refactor that I do I commit the refactor to have a safe returning point. Nevertheless, in this exercise I will just go for a single commit for the `BLUE` refactor stage regardless how bit the refactor is. The steps will be documented at the `README.md` file for each iteration
 - At every step the code coverage will be checked
 - Let's start creating unit tests considering that the `Game` has a single frame and cover all the logic for a single frame
     - Edge cases
@@ -104,3 +105,40 @@ $> make coverage
         - Implements when 11th `frame` with pending `spare` should allow one extra `roll`
             - `RED`: unit test that checks that an extra `roll` is allowed at 11th `frame` when there is a `pending` spare
             - `GREEN`: fix at `roll` method allow extra `roll` when there is a pending `spare`
+            - `BLUE`:
+                - refactor `GameTest` extract magic numbers into variables at multiple roll to improve readability
+                - refactor `Game` extract `spare` logic detection into a method
+                - refactor `Game` extract `strike` logic detection into a method
+                - refactor move logic `Game` to `Frame` class to reduce `feature envy`
+                    - move first the recent create `spare` and `strike` detection methods from `Game` class to `Frame` class
+                        - move `spare` detection method to `Frame` and use it at `Game`
+                        - inline `isTherePendingSpare` method at `Game` using new `Frame` method
+                        - move `strike` detection method to `Frame` and use it at `Game`
+                        - inline `isTherePendingStrike` method at `Game` using new `Frame` method
+                        - Rename methods removing `TherePending` wording at method's name
+                        - Implements `rollScore` method at `Frame` class and use it at `Game`
+                        - Implements `totalScore` method at `Frame` class and use it at `Game` to calculate `score`
+                        - Initialize first `Frame` when initialize `Game` and every time the `currentFrame` is incremented to be able to apply `tell do not ask` principles to the `Frame` methods
+                        - Create `processSpare` method at `Frame` class and move the `Frame` logic from the `Game` class to this new `Frame` method
+                        - Create `processStrike` method at `Frame` class and move the `Frame` logic from the `Game` class to this new `Frame` method
+                        - apply safe guard early return for `processStrike` and `processSpare` methods at `Frame` class
+                        - reduce `Frame bonus` field visibility to `private`
+                    - replace variable last `Frame` with a query
+                        - add method at `Game` class to retrieve the last `Frame` and inline variable where the last `Frame` is retrieved via array
+                    - replace variable current `Frame` with a query
+                        - add method at `Game` class to retrieve the current `Frame` and inline variable where the current `Frame` is retrieved via array
+                    - refactor `Game` rename `lastFrame` method to `previousFrame`
+                    - refactor `Game` extract create next and new `Frame` into methods
+                        - extract current `Frame` creation into a method
+                        - extract next `Frame` creation into a method
+                    - add method to set previous frame
+                    - add method to check whether the current frame is the first one at `Game`
+                    - refactor `Game` extract magic numbers into constants
+                        - extract minimum `pins` value into a constant
+                        - extract maximum `pins` value into a constant
+                        - extract maximum `frames` value into a constant
+                    - refactor `Game` extract logic to allow `rolls`
+                - At this point of the refactor most of the logic related to the `Frame` has been moved from the `Game` class to the `Frame` class, reducing the `feature envy` to the minimum
+                - The `Game` is now just a mere `Frames` manager collection
+                - In further iterations more refactor would be applied to add more logic to the `Frame` if that is posible :)
+

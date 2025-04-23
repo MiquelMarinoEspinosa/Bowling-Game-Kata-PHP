@@ -8,14 +8,28 @@ use Exception;
 
 final class Game
 {
-    private array $frames = [];
-    private int $currentFrame = 0;
+    private const int MINIMUM_PINS = 0;
+    private const int MAXIMUM_PINS = 10;
+    private const int LAST_FRAME = 10;
+
+    /** 
+     * @var array<Frame>
+     */
+    private array $frames;
+    private int $currentFrame ;
+
+    public function __construct()
+    {
+        $this->frames = [];
+        $this->currentFrame = 0;
+
+        $this->generateCurrentFrame();
+    }
 
     public function roll(int $pins): void
     {
         $this->validatePins($pins);
-        $previousFrame = $this->frames[$this->currentFrame - 1];
-        if ($this->currentFrame >= 10 && !($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null !== $previousFrame->rollTwo)) {
+        if ($this->isRolleAllowed() === false) {
             throw new Exception('cannot roll further than 10th frame');
         }
 
@@ -27,26 +41,25 @@ final class Game
         $result = 0;
         return array_reduce(
             $this->frames,
-            static fn(int $result, Frame $frame): int =>
-                $result + $frame->rollOne + $frame->rollTwo + $frame->bonus,
+            static fn(int $result, Frame $frame): int => $result + $frame->totalScore(),
             $result
         );
     }
 
     private function validatePins(int $pins): void
     {
-        if ($pins < 0) {
+        if ($pins < self::MINIMUM_PINS) {
             throw new Exception('pins paramater cannot be lesser than 0');
         }
 
-        if ($pins > 10) {
+        if ($pins > self::MAXIMUM_PINS) {
             throw new Exception('pins paramater cannot be greater than 10');
         }
     }
 
     private function processFrame(int $pins): void
     {
-        if (!isset($this->frames[$this->currentFrame])) {
+        if (!isset($this->currentFrame()->rollOne)) {
             $this->processRollOne($pins);
 
             return;
@@ -57,15 +70,13 @@ final class Game
 
     private function processRollOne(int $pins): void
     {
-        $frame = new Frame();
-        $frame->rollOne = $pins;
-        $this->frames[$this->currentFrame] = $frame;
+        $this->frames[$this->currentFrame]->rollOne = $pins;
         
-        if (10 === $pins) {
-            $this->currentFrame++;
+        if (self::MAXIMUM_PINS === $pins) {
+            $this->generateNextFrame();
         }
 
-        if (0 === $this->currentFrame) {
+        if ($this->isCurrentFrameTheFirst() === true) {
             return;
         }
 
@@ -74,35 +85,78 @@ final class Game
 
     private function processRollTwo(int $pins): void
     {
-        $this->frames[$this->currentFrame]->rollTwo = $pins;
+        $this->currentFrame()->rollTwo = $pins;
 
-        if (0 === $this->currentFrame) {
-            $this->currentFrame++;
+        if ($this->isCurrentFrameTheFirst() === true) {
+            $this->generateNextFrame();
+
             return;
         }
 
         $this->processStrike();
 
-        $this->currentFrame++;
+        $this->generateNextFrame();
     }
 
     private function processSpare(): void
     {
-        $previousFrame = $this->frames[$this->currentFrame - 1];
-        if ($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null !== $previousFrame->rollTwo) {
-            $this->frames[$this->currentFrame - 1]->bonus = $this->frames[$this->currentFrame]->rollOne; 
-        }
+        $this->updatePreviousFrame(
+            $this->currentFrame()->processSpare(
+                $this->previousFrame()
+            )
+        );
 
-        if ($this->currentFrame >= 10) {
+        if ($this->currentFrame >= self::LAST_FRAME) {
             unset($this->frames[$this->currentFrame]);
         }
     }
 
     private function processStrike(): void
     {
-        $previousFrame = $this->frames[$this->currentFrame - 1];
-        if ($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null === $previousFrame->rollTwo) {
-            $this->frames[$this->currentFrame - 1]->bonus = $this->frames[$this->currentFrame]->rollOne + $this->frames[$this->currentFrame]->rollTwo;
+        $this->updatePreviousFrame(
+            $this->currentFrame()->processStrike(
+                $this->previousFrame()
+            )
+        );
+    }
+
+    private function previousFrame(): Frame
+    {
+        return $this->frames[$this->currentFrame - 1];
+    }
+
+    private function currentFrame(): Frame
+    {
+        return $this->frames[$this->currentFrame];
+    }
+
+    private function generateNextFrame(): void 
+    {
+        $this->currentFrame++;
+        $this->generateCurrentFrame();
+    }
+
+    private function generateCurrentFrame(): void
+    {
+        $this->frames[$this->currentFrame] = new Frame();
+    }
+
+    private function updatePreviousFrame(Frame $frame): void
+    {
+        $this->frames[$this->currentFrame - 1] = $frame;
+    }
+
+    private function isCurrentFrameTheFirst(): bool
+    {
+        return 0 === $this->currentFrame;
+    }
+
+    private function isRolleAllowed(): bool
+    {
+        if ($this->currentFrame < self::LAST_FRAME) {
+            return true;
         }
+
+        return $this->previousFrame()->isSpare() === true;
     }
 }

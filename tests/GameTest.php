@@ -98,7 +98,9 @@ final class GameTest extends TestCase
         $this->expectException(Exception::class);
 
         $pins = 3;
-        for($roll=0; $roll < 10*2; $roll++) {
+        $numFrames = 10;
+        $numRollsPerFrame = 2;
+        for($currentRoll=0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
             $this->game->roll($pins);
         }
 
@@ -108,9 +110,12 @@ final class GameTest extends TestCase
     public function testGivenTenthFrameFinishedWithPendingSpareWhenRollOnceAgainThenTheRollShouldBeAllowed(): void
     {
         $pins = 3;
-        for($roll=0; $roll < 9*2; $roll++) {
+        $numFrames = 9;
+        $numRollsPerFrame = 2;
+        for($currentRoll=0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
             $this->game->roll($pins);
         }
+        
         $sparePins = 5;
         $this->game->roll($sparePins);
         $this->game->roll($sparePins);
