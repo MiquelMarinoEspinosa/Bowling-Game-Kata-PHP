@@ -14,7 +14,8 @@ final class Game
     public function roll(int $pins): void
     {
         $this->validatePins($pins);
-        if ($this->currentFrame >= 10) {
+        $previousFrame = $this->frames[$this->currentFrame - 1];
+        if ($this->currentFrame >= 10 && !($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null !== $previousFrame->rollTwo)) {
             throw new Exception('cannot roll further than 10th frame');
         }
 
@@ -90,6 +91,10 @@ final class Game
         $previousFrame = $this->frames[$this->currentFrame - 1];
         if ($previousFrame->rollOne + $previousFrame->rollTwo === 10 && null !== $previousFrame->rollTwo) {
             $this->frames[$this->currentFrame - 1]->bonus = $this->frames[$this->currentFrame]->rollOne; 
+        }
+
+        if ($this->currentFrame >= 10) {
+            unset($this->frames[$this->currentFrame]);
         }
     }
 

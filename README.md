@@ -103,3 +103,4 @@ $> make coverage
             - `BLUE`: refactor introduce `Frame` data transfer object and use it to update and gather frame data at `Game`
         - Implements when 11th `frame` with pending `spare` should allow one extra `roll`
             - `RED`: unit test that checks that an extra `roll` is allowed at 11th `frame` when there is a `pending` spare
+            - `GREEN`: fix at `roll` method allow extra `roll` when there is a pending `spare`
