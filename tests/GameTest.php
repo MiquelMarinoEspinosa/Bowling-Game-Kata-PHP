@@ -119,8 +119,28 @@ final class GameTest extends TestCase
         $sparePins = 5;
         $this->game->roll($sparePins);
         $this->game->roll($sparePins);
+        
         $this->game->roll($sparePins);
 
         self::assertSame(69, $this->game->score());
+    }
+
+    public function testGivenTenthFrameFinishedWithPendingSpareWhenRollTwiceAgainThenAnExceptionShouldBeThrown(): void
+    {
+        $this->expectException(Exception::class);
+
+        $pins = 3;
+        $numFrames = 9;
+        $numRollsPerFrame = 2;
+        for($currentRoll=0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
+            $this->game->roll($pins);
+        }
+        
+        $sparePins = 5;
+        $this->game->roll($sparePins);
+        $this->game->roll($sparePins);
+        
+        $this->game->roll($sparePins);
+        $this->game->roll($sparePins);
     }
 }

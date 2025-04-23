@@ -141,4 +141,6 @@ $> make coverage
                 - At this point of the refactor most of the logic related to the `Frame` has been moved from the `Game` class to the `Frame` class, reducing the `feature envy` to the minimum
                 - The `Game` is now just a mere `Frames` manager collection
                 - In further iterations more refactor would be applied to add more logic to the `Frame` if that is posible :)
+        - Implements 11th frame with pending `spare` should not allow more than one extra `roll`
+            - `RED`: failing test that at 11th frame try to `roll` twice, game should throw an exception
 
