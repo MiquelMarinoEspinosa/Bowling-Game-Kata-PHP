@@ -16,12 +16,14 @@ final class Game
      * @var array<Frame>
      */
     private array $frames;
-    private int $currentFrame ;
+    private int $currentFrame;
+    private ?Frame $lastExtraFrame;
 
     public function __construct()
     {
         $this->frames = [];
         $this->currentFrame = 0;
+        $this->lastExtraFrame = null;
 
         $this->generateCurrentFrame();
     }
@@ -107,7 +109,9 @@ final class Game
         );
 
         if ($this->currentFrame >= self::LAST_FRAME) {
+            $this->lastExtraFrame = $this->frames[$this->currentFrame];
             unset($this->frames[$this->currentFrame]);
+            $this->currentFrame--;
         }
     }
 
@@ -134,6 +138,9 @@ final class Game
     {
         $this->currentFrame++;
         $this->generateCurrentFrame();
+        if ($this->currentFrame >= self::LAST_FRAME) {
+            $this->lastExtraFrame = $this->currentFrame();
+        }
     }
 
     private function generateCurrentFrame(): void
@@ -153,10 +160,10 @@ final class Game
 
     private function isRolleAllowed(): bool
     {
-        if ($this->currentFrame < self::LAST_FRAME) {
+        if (null === $this->lastExtraFrame) {
             return true;
         }
 
-        return $this->previousFrame()->isSpare() === true;
+        return $this->previousFrame()->isSpare() === true && null === $this->lastExtraFrame->rollOne;
     }
 }

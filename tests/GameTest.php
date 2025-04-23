@@ -100,7 +100,7 @@ final class GameTest extends TestCase
         $pins = 3;
         $numFrames = 10;
         $numRollsPerFrame = 2;
-        for($currentRoll=0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
+        for($currentRoll = 0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
             $this->game->roll($pins);
         }
 
@@ -112,7 +112,7 @@ final class GameTest extends TestCase
         $pins = 3;
         $numFrames = 9;
         $numRollsPerFrame = 2;
-        for($currentRoll=0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
+        for($currentRoll = 0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
             $this->game->roll($pins);
         }
         
@@ -132,7 +132,7 @@ final class GameTest extends TestCase
         $pins = 3;
         $numFrames = 9;
         $numRollsPerFrame = 2;
-        for($currentRoll=0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
+        for($currentRoll = 0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
             $this->game->roll($pins);
         }
         

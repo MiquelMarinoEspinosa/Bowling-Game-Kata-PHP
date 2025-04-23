@@ -143,4 +143,6 @@ $> make coverage
                 - In further iterations more refactor would be applied to add more logic to the `Frame` if that is posible :)
         - Implements 11th frame with pending `spare` should not allow more than one extra `roll`
             - `RED`: failing test that at 11th frame try to `roll` twice, game should throw an exception
+            - `GREEN`: fix the test adding logic at the `Game` class more specifically at the `isRollAllowed` method
+                - introduce `lastExtraFrame` game field variable
 
