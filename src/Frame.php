@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace Kata;
 
+use Exception;
+
 final class Frame
 {
+    private const int MINIMUM_PINS = 0;
+    private const int MAXIMUM_PINS = 10;
+
     private ?int $firstRoll = null;
     private ?int $secondRoll = null;
     private ?int $bonus = null;
@@ -59,6 +64,7 @@ final class Frame
 
     public function processFirstRoll(int $pins): self
     {
+        $this->validatePins($pins);
         $this->firstRoll = $pins;
 
         return $this;
@@ -66,8 +72,20 @@ final class Frame
 
     public function processSecondRoll(int $pins): self
     {
+        $this->validatePins($pins);
         $this->secondRoll = $pins;
 
         return $this;
+    }
+
+    private function validatePins(int $pins): void
+    {
+        if ($pins < self::MINIMUM_PINS) {
+            throw new Exception('pins paramater cannot be lesser than 0');
+        }
+
+        if ($pins > self::MAXIMUM_PINS) {
+            throw new Exception('pins paramater cannot be greater than 10');
+        }
     }
 }

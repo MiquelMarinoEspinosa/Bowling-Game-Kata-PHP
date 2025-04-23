@@ -157,3 +157,6 @@ $> make coverage
         - Implements when 11th `frame` with `strike` at the last frame, should allow one more `roll`
             - `RED`: failing test when last frame has a pending `strike` to be processed, it should allow an extra roll. Right now just the `spare` logic is considered to allow the roll. Therefore, at this point the test throws an expected error
             - `GREEN`: fix the test extending allow roll logic to `strike`
+            - `BLUE`:
+                - refactor `GameTest` unit test return the current `score` at multiple rolls method
+                - refactor `Game` move `pins` validation to `Frame` class

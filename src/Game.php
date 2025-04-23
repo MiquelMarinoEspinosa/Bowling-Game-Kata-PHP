@@ -8,8 +8,6 @@ use Exception;
 
 final class Game
 {
-    private const int MINIMUM_PINS = 0;
-    private const int MAXIMUM_PINS = 10;
     private const int LAST_FRAME = 10;
 
     /** 
@@ -30,7 +28,6 @@ final class Game
 
     public function roll(int $pins): void
     {
-        $this->validatePins($pins);
         if ($this->isRolleAllowed() === false) {
             throw new Exception('cannot roll further than 10th frame');
         }
@@ -46,17 +43,6 @@ final class Game
             static fn(int $result, Frame $frame): int => $result + $frame->totalScore(),
             $result
         );
-    }
-
-    private function validatePins(int $pins): void
-    {
-        if ($pins < self::MINIMUM_PINS) {
-            throw new Exception('pins paramater cannot be lesser than 0');
-        }
-
-        if ($pins > self::MAXIMUM_PINS) {
-            throw new Exception('pins paramater cannot be greater than 10');
-        }
     }
 
     private function processFrame(int $pins): void

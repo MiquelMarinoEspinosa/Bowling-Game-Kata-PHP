@@ -107,7 +107,7 @@ final class GameTest extends TestCase
     public function testGivenTenthFrameFinishedWithPendingSpareWhenRollOnceAgainThenTheRollShouldBeAllowed(): void
     {
         $numFrames = 9;
-        $this->rollMultiple($numFrames);
+        $multiplePinsRolled = $this->rollMultiple($numFrames);
         
         $sparePins = 5;
         $this->game->roll($sparePins);
@@ -115,7 +115,10 @@ final class GameTest extends TestCase
         
         $this->game->roll($sparePins);
 
-        self::assertSame(69, $this->game->score());
+        self::assertSame(
+            $multiplePinsRolled + $sparePins * 3,
+            $this->game->score()
+        );
     }
 
     public function testGivenTenthFrameFinishedWithPendingSpareWhenRollTwiceAgainThenAnExceptionShouldBeThrown(): void
@@ -136,7 +139,7 @@ final class GameTest extends TestCase
     public function testGivenTenthFrameFinishedWithPendingStrikeWhenRollOnceAgainThenTheRollShouldBeAllowed(): void
     {
         $numFrames = 9;
-        $this->rollMultiple($numFrames);
+        $multiplePinsRolled = $this->rollMultiple($numFrames);
         
         $strikePins = 10;
         $this->game->roll($strikePins);
@@ -144,15 +147,20 @@ final class GameTest extends TestCase
         $pins = 3;
         $this->game->roll($pins);
 
-        self::assertSame(67, $this->game->score());
+        self::assertSame(
+            $multiplePinsRolled + $strikePins + $pins,
+            $this->game->score()
+        );
     }
 
-    private function rollMultiple(int $numFrames): void
+    private function rollMultiple(int $numFrames): int
     {
         $pins = 3;
         $numRollsPerFrame = 2;
         for($currentRoll = 0; $currentRoll < $numFrames*$numRollsPerFrame; $currentRoll++) {
             $this->game->roll($pins);
         }
+
+        return $this->game->score();
     } 
 }
