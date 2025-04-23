@@ -6,23 +6,23 @@ namespace Kata;
 
 final class Frame
 {
-    public ?int $rollOne = null;
-    public ?int $rollTwo = null;
+    private ?int $firstRoll = null;
+    private ?int $secondRoll = null;
     private ?int $bonus = null;
 
     public function isSpare(): bool
     {
-        return $this->rollOne + $this->rollTwo === 10 && null !== $this->rollTwo;
+        return $this->firstRoll + $this->secondRoll === 10 && null !== $this->secondRoll;
     }
 
     public function isStrike(): bool
     {
-        return $this->rollOne + $this->rollTwo === 10 && null === $this->rollTwo;
+        return $this->firstRoll + $this->secondRoll === 10 && null === $this->secondRoll;
     }
 
     public function rollScore(): int
     {
-        return $this->rollOne + $this->rollTwo;
+        return $this->firstRoll + $this->secondRoll;
     }
 
     public function totalScore(): int
@@ -36,7 +36,7 @@ final class Frame
             return $frame; 
         }
 
-        $frame->bonus = $this->rollOne;
+        $frame->bonus = $this->firstRoll;
 
         return $frame;
     }
@@ -50,5 +50,24 @@ final class Frame
         $frame->bonus = $this->rollScore();
 
         return $frame;
+    }
+
+    public function isFirstRoll(): bool
+    {
+        return null === $this->firstRoll;
+    }
+
+    public function processFirstRoll(int $pins): self
+    {
+        $this->firstRoll = $pins;
+
+        return $this;
+    }
+
+    public function processSecondRoll(int $pins): self
+    {
+        $this->secondRoll = $pins;
+
+        return $this;
     }
 }

@@ -145,4 +145,13 @@ $> make coverage
             - `RED`: failing test that at 11th frame try to `roll` twice, game should throw an exception
             - `GREEN`: fix the test adding logic at the `Game` class more specifically at the `isRollAllowed` method
                 - introduce `lastExtraFrame` game field variable
+            - `BLUE`:
+                - Refactor `GameTest` to extract multiple game for loop into a method
+                - Refactor `Game` encapsulate last frame processing logic into a method
+                - Refactor add method at `Frame` to check whether `isFirstRoll`
+                - refactor `Frame` add `processFirstRoll` method to update first roll value
+                - refactor `Frame` add `processSecondRoll` method to update first roll value 
+                - refactor `Frame` reduce all fields visibility to `private`
+                - refactor rename `Frame` fields to `firstRoll` and `secondRoll` 
+                - refactor `Game` add extra method to update `currentFrame`
 
