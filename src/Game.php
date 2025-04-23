@@ -180,7 +180,7 @@ final class Game
             return true;
         }
 
-        if ($this->previousFrame()->isSpare() === false) {
+        if ($this->previousFrame()->isSpare() === false && $this->currentFrame()->isStrike() === false) {
             return false;
         }
 
