@@ -97,7 +97,9 @@ $> make coverage
                 - extract `roll1` and `roll2` logic into other methods
                 - extract `processSpare` and `processStrike` into methods
     - Implements 10th frame logic
-        - Implements when 11th frame without `spare` or `strike` has finished, no more rolls are allowed
+        - Implements when 11th `frame` without `spare` or `strike` has finished, no more rolls are allowed
             - `RED`: unit test that implements the logic of no more roll allowed at 11th frame without `spare` or `strike` on 10th frame
             - `GREEN`: fix at the `roll` method when `frame` is greather than 10, throw an exception
             - `BLUE`: refactor introduce `Frame` data transfer object and use it to update and gather frame data at `Game`
+        - Implements when 11th `frame` with pending `spare` should allow one extra `roll`
+            - `RED`: unit test that checks that an extra `roll` is allowed at 11th `frame` when there is a `pending` spare

@@ -104,4 +104,18 @@ final class GameTest extends TestCase
 
         $this->game->roll($pins);
     }
+
+    public function testGivenTenthFrameFinishedWithPendingSpareWhenRollOnceAgainThenTheRollShouldBeAllowed(): void
+    {
+        $pins = 3;
+        for($roll=0; $roll < 9*2; $roll++) {
+            $this->game->roll($pins);
+        }
+        $sparePins = 5;
+        $this->game->roll($sparePins);
+        $this->game->roll($sparePins);
+        $this->game->roll($sparePins);
+
+        self::assertSame(69, $this->game->score());
+    }
 }
