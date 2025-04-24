@@ -32,21 +32,6 @@ final class Game
             throw new Exception('cannot roll further than 10th frame');
         }
 
-        $this->processFrame($pins);
-    }
-
-    public function score(): int 
-    {
-        $result = 0;
-        return array_reduce(
-            $this->frames,
-            static fn(int $result, Frame $frame): int => $result + $frame->totalScore(),
-            $result
-        );
-    }
-
-    private function processFrame(int $pins): void
-    {
         $this->updateCurrentFrame(
             $this->currentFrame()->roll($pins)
         );
@@ -56,26 +41,38 @@ final class Game
         $this->generateNextFrame();
     }
 
+    public function score(): int 
+    {
+        $result = 0;
+        
+        return array_reduce(
+            $this->frames,
+            static fn(int $result, Frame $frame): int => $result + $frame->totalScore(),
+            $result
+        );
+    }
+
+    private function updateCurrentFrame(Frame $frame): void
+    {
+        if ($this->isLastExtraFrame() === true) {
+            $this->lastExtraFrame = $frame;
+            return;
+        }
+        $this->frames[$this->currentFrame] = $frame;
+    }
+
     private function processBonuss(): void
     {
         if ($this->isCurrentFrameTheFirst() === true) {
             return;
         }
-        $this->processSpare();
-        $this->processStrike();
-    }
 
-    private function processSpare(): void
-    {
         $this->updatePreviousFrame(
             $this->currentFrame()->processSpare(
                 $this->previousFrame()
             )
         );
-    }
 
-    private function processStrike(): void
-    {
         $this->updatePreviousFrame(
             $this->currentFrame()->processStrike(
                 $this->previousFrame()
@@ -139,15 +136,6 @@ final class Game
             return;
         }
         $this->frames[$this->currentFrame - 1] = $frame;
-    }
-
-    private function updateCurrentFrame(Frame $frame): void
-    {
-        if ($this->isLastExtraFrame() === true) {
-            $this->lastExtraFrame = $frame;
-            return;
-        }
-        $this->frames[$this->currentFrame] = $frame;
     }
 
     private function isCurrentFrameTheFirst(): bool

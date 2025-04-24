@@ -178,3 +178,6 @@ $> make coverage
         - Implements when 11th `frame` with `strike` at the last frame, should allow three more `roll`
             - `RED`: failing tests should throw an exception at the `third` roll at the last `frame` when `strike` has been already processed. Expecting no error thrown
             - `GREEN`: The error is already thrown :) Even though is against TDD principle, for the sake of clarity, the test would be kept it. This would allow a final round of refactor |:D
+            - `BLUE`:
+                - Refactor `Game` `inline method` `processFrame` at `roll` method
+                - Refactor `Game` `inline method` `processSpare` and `processStrike` at `processBonus` method
