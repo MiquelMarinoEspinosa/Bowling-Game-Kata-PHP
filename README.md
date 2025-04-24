@@ -164,3 +164,14 @@ $> make coverage
             - `RED`: failing test when last frame has a pending `strike` to be processed, it should allow two extra roll. Right now just one extra roll is allow when strike. Therefore, at this point the test throws an expected error
             - `GREEN`: fix failing test adding logic to allow the second roll at the last frame when a peding `strike` is to be processed
                 - More logic added to manage current `Game` status considering the `lastExtraFrame`
+            - `BLUE`:
+                - Refactor `Game` extract `processSpare` and `processStrike` into new method `processBonus`
+                - Refactor `Game` extract `saveLastExtraFrame` into a method
+                - Refactor `Game` encapsulate generate next frame logic condition into `generateNextFrame` method
+                - Refactor `Game` move `processRoll` logic to `Frame` to make it agnostic from which roll's turn is adding a new `roll` method at `Frame` class
+                - Refactor `Frame` class reduce `processFirstRoll` and `processSecondRoll` visibility methods to `private`
+                - Refactor `Frame` class `inline method` `processFirstRoll` and `processSecondRoll`
+                - Refactor `Frame` class change `10` magic number to a constant
+                - Refactor `Frame` add `safe guards early returns` at `isSpare` and `isStrike` methods
+                - Refactor `Game` extract `lastExtraFrame` set condition into a method
+                - Refactor `Game` simplify `isRolleAllowed` method conditions

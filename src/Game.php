@@ -47,49 +47,22 @@ final class Game
 
     private function processFrame(int $pins): void
     {
-        if ($this->currentFrame()->isFirstRoll() === true) {
-            $this->processFirstRoll($pins);
-
-            return;
-        }
-
-        $this->processSecondRoll($pins);
-    }
-
-    private function processFirstRoll(int $pins): void
-    {
         $this->updateCurrentFrame(
-            $this->currentFrame()->processFirstRoll($pins)
-        );
-        
-        if ($this->currentFrame()->isStrike()) {
-            $this->generateNextFrame();
-        }
-
-        if ($this->isCurrentFrameTheFirst() === true) {
-            return;
-        }
-
-        $this->processSpare();
-
-        $this->processStrike();
-    }
-
-    private function processSecondRoll(int $pins): void
-    {
-        $this->updateCurrentFrame(
-            $this->currentFrame()->processSecondRoll($pins)
+            $this->currentFrame()->roll($pins)
         );
 
-        if ($this->isCurrentFrameTheFirst() === true) {
-            $this->generateNextFrame();
-
-            return;
-        }
-
-        $this->processStrike();
+        $this->processBonuss();
 
         $this->generateNextFrame();
+    }
+
+    private function processBonuss(): void
+    {
+        if ($this->isCurrentFrameTheFirst() === true) {
+            return;
+        }
+        $this->processSpare();
+        $this->processStrike();
     }
 
     private function processSpare(): void
@@ -112,7 +85,7 @@ final class Game
 
     private function previousFrame(): Frame
     {
-        if (null !== $this->lastExtraFrame) {
+        if ($this->isLastExtraFrame() === true) {
             return $this->frames[$this->currentFrame];    
         }
         return $this->frames[$this->currentFrame - 1];
@@ -120,7 +93,7 @@ final class Game
 
     private function currentFrame(): Frame
     {
-        if (null !== $this->lastExtraFrame) {
+        if ($this->isLastExtraFrame() === true) {
             return $this->lastExtraFrame;
         }
         return $this->frames[$this->currentFrame];
@@ -128,16 +101,30 @@ final class Game
 
     private function generateNextFrame(): void 
     {
-        if (null !== $this->lastExtraFrame) {
+        if ($this->isLastExtraFrame() === true) {
             return;
         }
+
+        if ($this->currentFrame()->isSecondRoll() === true) {
+            if ($this->currentFrame()->isStrike() === false) {
+                return;
+            }
+        }
+        
         $this->currentFrame++;
         $this->generateCurrentFrame();
-        if ($this->currentFrame >= self::LAST_FRAME) {
-            $this->lastExtraFrame = $this->currentFrame();
-            unset($this->frames[$this->currentFrame]);
-            $this->currentFrame--;
+        $this->saveLastExtraFrame();
+    }
+
+    private function saveLastExtraFrame(): void
+    {
+        if ($this->currentFrame < self::LAST_FRAME) {
+            return;
         }
+
+        $this->lastExtraFrame = $this->currentFrame();
+        unset($this->frames[$this->currentFrame]);
+        $this->currentFrame--;
     }
 
     private function generateCurrentFrame(): void
@@ -147,7 +134,7 @@ final class Game
 
     private function updatePreviousFrame(Frame $frame): void
     {
-        if (null !== $this->lastExtraFrame) {
+        if ($this->isLastExtraFrame() === true) {
             $this->frames[$this->currentFrame] = $frame;
             return;
         }
@@ -156,7 +143,7 @@ final class Game
 
     private function updateCurrentFrame(Frame $frame): void
     {
-        if (null !== $this->lastExtraFrame) {
+        if ($this->isLastExtraFrame() === true) {
             $this->lastExtraFrame = $frame;
             return;
         }
@@ -170,7 +157,7 @@ final class Game
 
     private function isRolleAllowed(): bool
     {
-        if (null === $this->lastExtraFrame) {
+        if ($this->isLastExtraFrame() === false) {
             return true;
         }
 
@@ -178,14 +165,19 @@ final class Game
             return false;
         }
 
-        if ($this->previousFrame()->isSpare() === true && $this->lastExtraFrame->isFirstRoll() === true) {
+        if ($this->previousFrame()->isSpare() === true) {
+            return $this->lastExtraFrame->isFirstRoll() === true;
+        }
+
+        if ($this->lastExtraFrame->isFirstRoll() === true) {
             return true;
         }
 
-        if ($this->previousFrame()->isStrike() === true && $this->lastExtraFrame->isFirstRoll() === true) {
-            return true;
-        }
+        return $this->lastExtraFrame->isSecondRoll() === true;
+    }
 
-        return $this->previousFrame()->isStrike() === true && $this->lastExtraFrame->isSecondRoll() === true;
+    private function isLastExtraFrame(): bool
+    {
+        return null !== $this->lastExtraFrame;
     }
 }

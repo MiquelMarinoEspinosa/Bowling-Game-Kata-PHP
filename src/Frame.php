@@ -17,12 +17,20 @@ final class Frame
 
     public function isSpare(): bool
     {
-        return $this->firstRoll + $this->secondRoll === 10 && null !== $this->secondRoll;
+        if ($this->rollScore() < self::MAXIMUM_PINS) {
+            return false;
+        }
+        
+        return null !== $this->secondRoll;
     }
 
     public function isStrike(): bool
     {
-        return $this->firstRoll + $this->secondRoll === 10 && null === $this->secondRoll;
+        if ($this->firstRoll < self::MAXIMUM_PINS) {
+            return false;
+        }
+        
+        return $this->isSecondRoll();
     }
 
     public function rollScore(): int
@@ -67,17 +75,16 @@ final class Frame
         return null === $this->secondRoll;
     }
 
-    public function processFirstRoll(int $pins): self
+    public function roll(int $pins): self
     {
         $this->validatePins($pins);
-        $this->firstRoll = $pins;
+        
+        if ($this->isFirstRoll() === true) {
+            $this->firstRoll = $pins;
+            
+            return $this;
+        }
 
-        return $this;
-    }
-
-    public function processSecondRoll(int $pins): self
-    {
-        $this->validatePins($pins);
         $this->secondRoll = $pins;
 
         return $this;
