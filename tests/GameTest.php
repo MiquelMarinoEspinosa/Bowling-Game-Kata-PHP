@@ -187,6 +187,40 @@ final class GameTest extends TestCase
         $this->game->roll($pins);
     }
 
+    public function testScoringBowlingPdfSample(): void
+    {
+        $this->game->roll(1);
+        $this->game->roll(4);
+
+        $this->game->roll(4);
+        $this->game->roll(5);
+
+        $this->game->roll(6);
+        $this->game->roll(4);
+
+        $this->game->roll(5);
+        $this->game->roll(5);
+
+        $this->game->roll(10);
+
+        $this->game->roll(0);
+        $this->game->roll(1);
+
+        $this->game->roll(7);
+        $this->game->roll(3);
+        
+        $this->game->roll(6);
+        $this->game->roll(4);
+
+        $this->game->roll(10);
+
+        $this->game->roll(2);
+        $this->game->roll(8);
+        $this->game->roll(6);
+
+        self::assertSame(133, $this->game->score());
+    }
+
     private function rollMultiple(int $numFrames): int
     {
         $pins = 3;

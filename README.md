@@ -182,3 +182,4 @@ $> make coverage
                 - Refactor `Game` `inline method` `processFrame` at `roll` method
                 - Refactor `Game` `inline method` `processSpare` and `processStrike` at `processBonus` method
 - Here the kata ends. It has been a good exercise where at the end has been needed an extra class `Frame` to have some logic. I have found specially difficult to manage the last `frame` logic allowing extra `roll`. Nevertheless, I have enjoyed the kata and very recommended specially at the first stages to do the kata using `TDD` with `pair programming` :)
+    - Adding final unit tests with the first page [pdf](BowlingGameKata.pdf)
