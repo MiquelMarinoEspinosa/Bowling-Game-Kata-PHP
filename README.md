@@ -162,3 +162,5 @@ $> make coverage
                 - refactor `Game` move `pins` validation to `Frame` class
         - Implements when 11th `frame` with `strike` at the last frame, should allow two more `roll`
             - `RED`: failing test when last frame has a pending `strike` to be processed, it should allow two extra roll. Right now just one extra roll is allow when strike. Therefore, at this point the test throws an expected error
+            - `GREEN`: fix failing test adding logic to allow the second roll at the last frame when a peding `strike` is to be processed
+                - More logic added to manage current `Game` status considering the `lastExtraFrame`

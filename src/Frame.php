@@ -62,6 +62,11 @@ final class Frame
         return null === $this->firstRoll;
     }
 
+    public function isSecondRoll(): bool
+    {
+        return null === $this->secondRoll;
+    }
+
     public function processFirstRoll(int $pins): self
     {
         $this->validatePins($pins);
