@@ -153,6 +153,24 @@ final class GameTest extends TestCase
         );
     }
 
+    public function testGivenTenthFrameFinishedWithPendingStrikeWhenRollTwiceAgainThenTheRollsShouldBeAllowed(): void
+    {
+        $numFrames = 9;
+        $multiplePinsRolled = $this->rollMultiple($numFrames);
+        
+        $strikePins = 10;
+        $this->game->roll($strikePins);
+
+        $pins = 3;
+        $this->game->roll($pins);
+        $this->game->roll($pins);
+
+        self::assertSame(
+            $multiplePinsRolled + $strikePins + $pins * 2,
+            $this->game->score()
+        );
+    }
+
     private function rollMultiple(int $numFrames): int
     {
         $pins = 3;
