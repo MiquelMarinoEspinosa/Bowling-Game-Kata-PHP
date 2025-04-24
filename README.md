@@ -141,7 +141,7 @@ $> make coverage
                 - At this point of the refactor most of the logic related to the `Frame` has been moved from the `Game` class to the `Frame` class, reducing the `feature envy` to the minimum
                 - The `Game` is now just a mere `Frames` manager collection
                 - In further iterations more refactor would be applied to add more logic to the `Frame` if that is posible :)
-        - Implements 11th frame with pending `spare` should not allow more than one extra `roll`
+        - Implements 11th frame with pending `spare` should not allow more than `one` extra `roll`
             - `RED`: failing test that at 11th frame try to `roll` twice, game should throw an exception
             - `GREEN`: fix the test adding logic at the `Game` class more specifically at the `isRollAllowed` method
                 - introduce `lastExtraFrame` game field variable
@@ -154,13 +154,13 @@ $> make coverage
                 - refactor `Frame` reduce all fields visibility to `private`
                 - refactor rename `Frame` fields to `firstRoll` and `secondRoll` 
                 - refactor `Game` add extra method to update `currentFrame`
-        - Implements when 11th `frame` with `strike` at the last frame, should allow one more `roll`
+        - Implements when 11th `frame` with `strike` at the last frame, should allow `one` more `roll`
             - `RED`: failing test when last frame has a pending `strike` to be processed, it should allow an extra roll. Right now just the `spare` logic is considered to allow the roll. Therefore, at this point the test throws an expected error
             - `GREEN`: fix the test extending allow roll logic to `strike`
             - `BLUE`:
                 - refactor `GameTest` unit test return the current `score` at multiple rolls method
                 - refactor `Game` move `pins` validation to `Frame` class
-        - Implements when 11th `frame` with `strike` at the last frame, should allow two more `roll`
+        - Implements when 11th `frame` with `strike` at the last frame, should allow `two` more `roll`
             - `RED`: failing test when last frame has a pending `strike` to be processed, it should allow two extra roll. Right now just one extra roll is allow when strike. Therefore, at this point the test throws an expected error
             - `GREEN`: fix failing test adding logic to allow the second roll at the last frame when a peding `strike` is to be processed
                 - More logic added to manage current `Game` status considering the `lastExtraFrame`
@@ -175,3 +175,6 @@ $> make coverage
                 - Refactor `Frame` add `safe guards early returns` at `isSpare` and `isStrike` methods
                 - Refactor `Game` extract `lastExtraFrame` set condition into a method
                 - Refactor `Game` simplify `isRolleAllowed` method conditions
+        - Implements when 11th `frame` with `strike` at the last frame, should allow three more `roll`
+            - `RED`: failing tests should throw an exception at the `third` roll at the last `frame` when `strike` has been already processed. Expecting no error thrown
+            - `GREEN`: The error is already thrown :) Even though is against TDD principle, for the sake of clarity, the test would be kept it. This would allow a final round of refactor |:D

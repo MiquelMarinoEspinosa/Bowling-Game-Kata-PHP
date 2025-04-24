@@ -171,6 +171,22 @@ final class GameTest extends TestCase
         );
     }
 
+    public function testGivenTenthFrameFinishedWithPendingStrikeWhenRollThreeTimesAgainThenTheLastRollShouldNotBeAllowed(): void
+    {
+        $this->expectException(Exception::class);
+        
+        $numFrames = 9;
+        $this->rollMultiple($numFrames);
+        
+        $strikePins = 10;
+        $this->game->roll($strikePins);
+
+        $pins = 3;
+        $this->game->roll($pins);
+        $this->game->roll($pins);
+        $this->game->roll($pins);
+    }
+
     private function rollMultiple(int $numFrames): int
     {
         $pins = 3;
